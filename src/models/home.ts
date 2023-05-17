@@ -6,11 +6,11 @@
  * 最后，触发 dispatch() 函数完成 state 的更新。dispatch() 的参数中包含 type 和 payload 两个属性，
  * 你可以查看 createReducer() 函数，来了解详细的实现逻辑；
  * 最后需要导出一个 reducer 函数，在 '@/components/LazyLoader' 组件中定义了如何使用。
-*/
+ */
 
-import { axios } from '@/utils';
-import type { Dispatch } from 'redux';
-import createReducer from '@/redux/createReducer';
+import { axios } from "@/utils";
+import type { Dispatch } from "redux";
+import createReducer from "@/redux/createReducer";
 
 export const effects = {
   getMenuSource: (query: any) => axios.post("/v1.0/menuSource", query),
@@ -22,11 +22,11 @@ export const actions = {
       const response: any = await effects.getMenuSource(query);
       const { code, data } = response;
       if (code === 0) {
-        dispatch({ type: 'getMenuSource', payload: { menuSource: data } });
+        dispatch({ type: "getMenuSource", payload: { menuSource: data } });
       }
       // 这里返回 response。这样你也可以在 .then() 中拿到结果。
       return response;
-    }
+    };
   },
 };
 

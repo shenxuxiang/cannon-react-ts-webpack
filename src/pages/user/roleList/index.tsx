@@ -1,6 +1,5 @@
 import React, { memo } from "react";
-import classes from './index.module.less';
-
+import classes from "./index.module.less";
 function Page() {
   return (
     <div className={classes.page}>

@@ -10,12 +10,12 @@ import routesMap from "@/routers/routesMap";
 import MainLayout from "@/components/MainLayout";
 import LazyLoader from "@/components/LazyLoader";
 
-export type MenuItem = {
+export interface MenuItem {
   key: string;
   label: string;
   icon?: React.ReactNode | null;
   children?: MenuItem[];
-};
+}
 
 export function computeMenuItems(
   permissions = new Set<string>(),

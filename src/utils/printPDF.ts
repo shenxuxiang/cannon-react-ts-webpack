@@ -1,7 +1,7 @@
 import html2canvas from "html2canvas";
 import JSPDF from "jspdf";
 
-type Html2CanvasOptions = {
+interface Html2CanvasOptions {
   scale: number;
   useCORS: boolean;
   allowTaint: boolean;
@@ -9,14 +9,14 @@ type Html2CanvasOptions = {
   y: number;
   scrollX: number;
   scrollY: number;
-};
+}
 
-type PdfOptions = {
+interface PdfOptions {
   orientation: "p" | "l";
   format: "a4";
   safeAreaOffset: [number, number];
   showPageNumber: boolean;
-};
+}
 
 const defaultHtml2CanvasOptions = {
   scale: 2,
@@ -41,12 +41,12 @@ const width$height = {
   a4: [595.28, 841.89],
 };
 
-type PrintClassProps = {
+interface PrintClassProps {
   element: HTMLElement;
   html2CanvasOptions?: Partial<Html2CanvasOptions>;
   pdfOptions?: Partial<PdfOptions>;
   fileName?: string;
-};
+}
 
 class PrintPDF {
   public h2cOpts: Html2CanvasOptions;

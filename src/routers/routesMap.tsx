@@ -6,9 +6,9 @@ import {
   TeamOutlined,
   UserSwitchOutlined,
 } from "@ant-design/icons";
-import { reducer as homeReducer } from '@/models/home'
+import { reducer as homeReducer } from "@/models/home";
 
-type RouteItem = {
+interface RouteItem {
   // label 字段用在菜单中展示 router 的名称
   label?: string;
   // label 字段用在菜单中展示 router 的图标
@@ -16,7 +16,7 @@ type RouteItem = {
   path: string;
   element?: React.ReactElement;
   children?: RouteItem[];
-};
+}
 
 const iconStyle = { fontSize: 18, marginRight: 10, color: "#fff" };
 
@@ -25,7 +25,9 @@ const routesMap: RouteItem[] = [
     path: "/home",
     label: "首页",
     icon: <HomeOutlined style={iconStyle} />,
-    element: React.createElement(LazyLoader(() => import("../pages/home"), { home: homeReducer })),
+    element: React.createElement(
+      LazyLoader(() => import("../pages/home"), { home: homeReducer })
+    ),
   },
   {
     path: "/user",

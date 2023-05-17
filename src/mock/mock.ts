@@ -62,18 +62,18 @@ Mock.mock("/v1.0/menuSource", "post", {
   message: "操作成功",
   data: [
     {
-      path: '/home',
+      path: "/home",
     },
     {
-      path: '/user',
+      path: "/user",
       children: [
         {
-          path: '/user/user-list'
+          path: "/user/user-list",
         },
         {
-          path: '/user/role-list'
+          path: "/user/role-list",
         },
-      ]
-    }
+      ],
+    },
   ],
 });

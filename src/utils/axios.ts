@@ -1,16 +1,23 @@
-import axios from 'axios';
-import { message } from 'antd';
-import { getLocalStorage } from '@/utils';
-import type { AxiosError, AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
-import { useNavigate, useLocation, createPath } from 'react-router-dom';
-type RequestParams = { [key: string]: any };
+import axios from "axios";
+import { message } from "antd";
+import { getLocalStorage } from "@/utils";
+import type {
+  AxiosError,
+  AxiosInstance,
+  AxiosResponse,
+  AxiosRequestConfig,
+} from "axios";
+import { useNavigate, useLocation, createPath } from "react-router-dom";
+interface RequestParams {
+  [key: string]: any;
+}
 // 请求响应参数，包含data
 type ResultData<T = {}> = T;
 // 接口相应成功后的 code 定义
 enum ResponseCode {
   SUCCESS_CODE = 0,
   OVERDUE_CODE = 401,
-};
+}
 
 let controller = new AbortController();
 // 取消请求
@@ -20,7 +27,7 @@ export const abortRequestEffect = () => {
 };
 
 const defaultConfig: AxiosRequestConfig = {
-  baseURL: '',
+  baseURL: "",
   timeout: 200000,
   withCredentials: true,
 };
@@ -38,7 +45,7 @@ class RequestHttp {
     // 请求拦截器
     this.request.interceptors.request.use(
       (config: any) => {
-        const token = getLocalStorage('TOKEN') || 'Bearer Token';
+        const token = getLocalStorage("TOKEN") || "Bearer Token";
         return {
           ...config,
           // signal 用来取消请求
@@ -60,14 +67,14 @@ class RequestHttp {
         } = response;
 
         // 下载文件，blob 直接用于文件的下载
-        if (responseType === 'blob') {
-          let fileName = headers['content-disposition'] ?? '';
+        if (responseType === "blob") {
+          let fileName = headers["content-disposition"] ?? "";
 
           const matched = /^attachment;\s*filename\*?=(?:utf-8'')?([^,]+)/.exec(
             fileName
           );
           if (matched === null) {
-            fileName = 'defaultName';
+            fileName = "defaultName";
           } else {
             fileName = decodeURIComponent(matched[1]);
           }
@@ -77,7 +84,7 @@ class RequestHttp {
 
         // 登录凭证失效/过期
         if (data.code === ResponseCode.OVERDUE_CODE) {
-          message.error('登录已过期，请重新登录');
+          message.error("登录已过期，请重新登录");
           window.localStorage.clear();
           abortRequestEffect();
           this.redirectToLogin();
@@ -85,7 +92,10 @@ class RequestHttp {
         }
 
         // 接口异常
-        if (typeof data.code !== 'undefined' && data.code !== ResponseCode.SUCCESS_CODE) {
+        if (
+          typeof data.code !== "undefined" &&
+          data.code !== ResponseCode.SUCCESS_CODE
+        ) {
           data.message && message.error(data.message);
           return Promise.reject(data);
         }
@@ -97,7 +107,7 @@ class RequestHttp {
         if (response) {
           this.handleCheckStatus(response.status);
         } else if (!window.navigator.onLine) {
-          message.error('网络连接失败');
+          message.error("网络连接失败");
         }
       }
     );
@@ -109,12 +119,12 @@ class RequestHttp {
       case 401:
       case 403:
         abortRequestEffect();
-        message.error('用户请登录');
+        message.error("用户请登录");
         window.localStorage.clear();
         this.redirectToLogin();
         break;
       default:
-        message.error('请求失败，请联系管理员');
+        message.error("请求失败，请联系管理员");
         break;
     }
   }
@@ -123,7 +133,7 @@ class RequestHttp {
   redirectToLogin() {
     const navigate = useNavigate();
     const location = useLocation();
-    if (location.pathname.startsWith('/login')) return;
+    if (location.pathname.startsWith("/login")) return;
     const href = window.encodeURIComponent(createPath(location));
     navigate(href);
   }
@@ -133,7 +143,7 @@ class RequestHttp {
   }
 
   getBlob<T>(url: string, params?: RequestParams): Promise<ResultData<T>> {
-    return this.request.get(url, { params, responseType: 'blob' });
+    return this.request.get(url, { params, responseType: "blob" });
   }
 
   delete<T>(url: string, params?: RequestParams): Promise<ResultData<T>> {

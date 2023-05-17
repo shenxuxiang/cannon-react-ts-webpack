@@ -4,11 +4,11 @@
  * 具体使用场景可以参考 '@/pages/home' 页面的代码。
  * 如果你的页面不使用 redux 进行数据状态管理，可以参考 '@/pages/login' 页面的代码
  * 注意，如果你不使用它请不要删除该文件。
-*/
+ */
 
-import { axios } from '@/utils';
-import type { Dispatch } from 'redux';
-import createReducer from '@/redux/createReducer';
+import { axios } from "@/utils";
+import type { Dispatch } from "redux";
+import createReducer from "@/redux/createReducer";
 
 export const effects = {};
 

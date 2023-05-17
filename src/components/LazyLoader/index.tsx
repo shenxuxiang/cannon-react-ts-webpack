@@ -1,24 +1,29 @@
 import React, { useState, useLayoutEffect } from "react";
-import {
-  useParams,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { Spin } from "antd";
-import store from '@/redux/store';
+import store from "@/redux/store";
 import { combineReducers } from "redux";
-import { reducer } from '@/models/index';
-import type { Reducer } from 'redux';
+import { reducer } from "@/models/index";
+import type { Reducer } from "redux";
 import classes from "./index.module.less";
 
-type Loader = () => Promise<{default: React.FunctionComponent | React.ComponentClass}>;
-type Models = { [propName: string]: Reducer };
+type Loader = () => Promise<{
+  default: React.FunctionComponent | React.ComponentClass;
+}>;
+interface Models {
+  [propName: string]: Reducer;
+}
 
 const { replaceReducer } = store;
 
-export default function LazyLoader(loader: Loader, models?: Models): React.FunctionComponent {
+export default function LazyLoader(
+  loader: Loader,
+  models?: Models
+): React.FunctionComponent {
   return function (props: any) {
-    const [content, setContent] = useState<React.FunctionComponent | React.ComponentClass | null>(null);
+    const [content, setContent] = useState<
+      React.FunctionComponent | React.ComponentClass | null
+    >(null);
     const location = useLocation();
     const navigate = useNavigate();
     const params = useParams();
