@@ -31,14 +31,12 @@ module.exports = {
     }
   },
   optimization: {
-    minimizer: [],
-    minimize: false,
     runtimeChunk: true,
     splitChunks: {
       chunks: 'all',
       minChunks: 2,
       minRemainingSize: 25 * 1024,
-      enforceSizeThreshold: 1024 * 1024 * 2,
+      enforceSizeThreshold: 1024 * 244,
     },
   },
   module: {

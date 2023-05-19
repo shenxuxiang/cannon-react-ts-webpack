@@ -2,72 +2,72 @@ interface CSSModuleClasses {
   readonly [key: string]: string;
 }
 
-declare module "*.module.css" {
+declare module '*.module.css' {
   const classes: CSSModuleClasses;
   export default classes;
 }
 
-declare module "*.module.less" {
+declare module '*.module.less' {
   const classes: CSSModuleClasses;
   export default classes;
 }
 
-declare module "*.css" {
+declare module '*.css' {
   const css: string;
   export default css;
 }
 
-declare module "*.less" {
+declare module '*.less' {
   const css: string;
   export default css;
 }
 
-declare module "*.png" {
+declare module '*.png' {
   const src: string;
   export default src;
 }
 
-declare module ".jpg" {
+declare module '.jpg' {
   const src: string;
   export default src;
 }
 
-declare module ".jpeg" {
+declare module '.jpeg' {
   const src: string;
   export default src;
 }
 
-declare module "*.gif" {
+declare module '*.gif' {
   const src: string;
   export default src;
 }
 
-declare module ".webp" {
+declare module '.webp' {
   const src: string;
   export default src;
 }
 
-declare module "*.bmp" {
+declare module '*.bmp' {
   const src: string;
   export default src;
 }
 
-declare module "*.mp4" {
+declare module '*.mp4' {
   const src: string;
   export default src;
 }
 
-declare module "*.mp3" {
+declare module '*.mp3' {
   const src: string;
   export default src;
 }
 
-declare module "*.ogg" {
+declare module '*.ogg' {
   const src: string;
   export default src;
 }
 
-declare module "*.webm" {
+declare module '*.webm' {
   const src: string;
   export default src;
 }

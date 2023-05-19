@@ -1,5 +1,6 @@
-import React, { memo } from "react";
-import classes from "./index.module.less";
+import React, { memo } from 'react';
+import classes from './index.module.less';
+
 function Page() {
   return (
     <div className={classes.page}>
@@ -7,5 +8,4 @@ function Page() {
     </div>
   );
 }
-
 export default memo(Page);
