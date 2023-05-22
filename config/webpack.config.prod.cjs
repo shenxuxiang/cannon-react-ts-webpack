@@ -8,6 +8,7 @@ const terserPlugin = require('terser-webpack-plugin');
 const CssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const CaseSensitivePlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
@@ -39,13 +40,25 @@ module.exports = {
       new terserPlugin(),
       new CssMinimizerPlugin(),
     ],
+    // 开启 Tree Shaking
+    usedExports: true,
     minimize: true,
     runtimeChunk: true,
     splitChunks: {
       chunks: 'all',
       minChunks: 2,
       minRemainingSize: 25 * 1024,
-      enforceSizeThreshold: 1024 * 1024 * 2,
+      maxSize: 250 * 1024,
+      minSize: 25 * 1024,
+    },
+  },
+  cache: {
+    type: 'filesystem',
+    store: 'pack',
+    buildDependencies: {
+      // This makes all dependencies of this file - build dependencies
+      config: [__filename],
+      // 默认情况下 webpack 与 loader 是构建依赖。
     },
   },
   module: {
@@ -249,5 +262,7 @@ module.exports = {
     }),
     new CaseSensitivePathsPlugin(),
     new ProgressBarPlugin(),
-  ]
+    // 资源模块分析
+    process.env.ANALYSE ? new BundleAnalyzerPlugin() : null,
+  ].filter(Boolean),
 }
