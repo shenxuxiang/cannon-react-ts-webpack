@@ -155,7 +155,9 @@ module.exports = {
                 loader: require.resolve('less-loader'),
                 options: {
                   lessOptions: {
-                    modifyVars: {},
+                    modifyVars: {
+                      themeColor: '#6C69FF',
+                    },
                     globalVars: {},
                     javascriptEnable: true,
                   },
@@ -184,7 +186,9 @@ module.exports = {
                 loader: require.resolve('less-loader'),
                 options: {
                   lessOptions: {
-                    modifyVars: {},
+                    modifyVars: {
+                      themeColor: '#6C69FF',
+                    },
                     globalVars: {},
                     javascriptEnable: true,
                   },

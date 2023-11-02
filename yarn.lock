@@ -6618,6 +6618,11 @@ q@^1.5.1:
   resolved "https://registry.npmjs.org/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==
 
+qm-vnit@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.npmjs.org/qm-vnit/-/qm-vnit-2.0.4.tgz#8af68976d9312bcc8c40080f14f3432d41ee17af"
+  integrity sha512-7uQjalNTZmJTklff46qwx5cgjcIqlOln/DQ4SmwLynXQsDkcfprmiwJzsb7nkUmMEYu41r++Chv+N0WleRzwSA==
+
 qrcode.react@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/qrcode.react/-/qrcode.react-3.1.0.tgz#5c91ddc0340f768316fbdb8fff2765134c2aecd8"
