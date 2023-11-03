@@ -11,9 +11,7 @@ import { Spin, message } from 'antd';
 import type { Reducer } from 'redux';
 import store from '@/redux/store';
 
-type Loader = () => Promise<{
-  default: React.FunctionComponent | React.ComponentClass;
-}>;
+type Loader = () => Promise<{ default: React.FunctionComponent | React.ComponentClass }>;
 
 type Models = { [propName: string]: Reducer };
 
