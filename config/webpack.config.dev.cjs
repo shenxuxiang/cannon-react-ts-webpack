@@ -9,7 +9,7 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 if (fs.existsSync('../env.development.json')) Object.assign(env, require('../env.development.json'));
-const { PUBLIC_PATH, THEME_COLOR } = env;
+const { PUBLIC_PATH, THEME_COLOR, BASE_URL } = env;
 
 module.exports = {
   cache: true,
@@ -214,7 +214,7 @@ module.exports = {
       meta: {
         viewport: {
           name: 'width=device-width',
-          content: 'initial-scale=1.0, user-scalable: no, maximum-scale=1.0, minimum-scale=no'
+          content: 'initial-scale=1.0, user-scalable: no, maximum-scale=1.0, minimum-scale=1.0'
         }
       }
     }),
@@ -232,7 +232,7 @@ module.exports = {
   devServer: {
     hot: true,
     port: 8888,
-    open: PUBLIC_PATH,
+    open: BASE_URL,
     compress: true,
     host: 'localhost',
     historyApiFallback: true,
