@@ -4,13 +4,12 @@ const env = require('../env.json');
 const { DefinePlugin } = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const CaseSensitivePlugin = require('case-sensitive-paths-webpack-plugin');
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 if (fs.existsSync('../env.development.json')) Object.assign(env, require('../env.development.json'));
-const { PUBLIC_PATH } = env;
+const { PUBLIC_PATH, THEME_COLOR } = env;
 
 module.exports = {
   cache: true,
@@ -156,7 +155,7 @@ module.exports = {
                 options: {
                   lessOptions: {
                     modifyVars: {
-                      themeColor: '#6C69FF',
+                      themeColor: THEME_COLOR,
                     },
                     globalVars: {},
                     javascriptEnable: true,
@@ -187,7 +186,7 @@ module.exports = {
                 options: {
                   lessOptions: {
                     modifyVars: {
-                      themeColor: '#6C69FF',
+                      themeColor: THEME_COLOR,
                     },
                     globalVars: {},
                     javascriptEnable: true,
@@ -233,7 +232,7 @@ module.exports = {
   devServer: {
     hot: true,
     port: 8888,
-    open: true,
+    open: PUBLIC_PATH,
     compress: true,
     host: 'localhost',
     historyApiFallback: true,
