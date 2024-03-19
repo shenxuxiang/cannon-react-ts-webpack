@@ -237,7 +237,7 @@ module.exports = {
       meta: {
         viewport: {
           name: 'width=device-width',
-          content: 'initial-scale=1.0, user-scalable: no, maximum-scale=1.0, minimum-scale=no'
+          content: 'initial-scale=1.0, user-scalable: no, maximum-scale=1.0, minimum-scale=1.0'
         }
       }
     }),
