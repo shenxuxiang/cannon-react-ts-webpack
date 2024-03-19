@@ -1,28 +1,15 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import { Button, Popconfirm, Space, message } from 'antd';
-import { actions } from '@/models/systemRole';
+import { useActions, useModel } from '@/redux';
+import { systemRoleActions } from '@/models';
 import { ContentFormTable } from 'qm-vnit';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import type { Dispatch } from 'redux';
 import type { Dayjs } from 'dayjs';
-import { isEmpty } from '@/utils';
 
-const mapStateFromProps = (state: any) => {
-  return { ...state.main, ...state.systemRoleModel };
-};
+function Page() {
+  const { queryRoleList } = useActions(systemRoleActions);
+  const systemRoleModel = useModel('systemRole');
 
-const mapDispatchFromProps = (dispatch: Dispatch) => {
-  return bindActionCreators(actions, dispatch);
-};
-
-function Page(props: any) {
-  const { queryTableList, queryWorkTypeList, workTypeList } = props;
-  console.log(workTypeList);
-
-  if (isEmpty(workTypeList)) {
-    queryWorkTypeList();
-  }
+  console.log(systemRoleModel);
 
   const columns = useMemo(() => {
     return [
@@ -79,15 +66,8 @@ function Page(props: any) {
           };
         },
       },
-      {
-        title: '类型',
-        dataIndex: 'type',
-        formType: 'select',
-        visibleInTable: false,
-        options: workTypeList,
-      },
     ];
-  }, [workTypeList]);
+  }, []);
 
   const handleValidateFormModels = useCallback((values: any) => {
     console.log(values);
@@ -103,10 +83,10 @@ function Page(props: any) {
       bordered
       rowKey="id"
       columns={columns}
-      requestDataSource={queryTableList}
+      requestDataSource={queryRoleList}
       beforeQueryAction={handleValidateFormModels}
     />
   );
 }
 
-export default memo(connect(mapStateFromProps, mapDispatchFromProps)(Page));
+export default memo(Page);

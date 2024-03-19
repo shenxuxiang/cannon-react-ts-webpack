@@ -4,13 +4,12 @@ const env = require('../env.json');
 const { DefinePlugin } = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const CaseSensitivePlugin = require('case-sensitive-paths-webpack-plugin');
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 if (fs.existsSync('../env.development.json')) Object.assign(env, require('../env.development.json'));
-const { PUBLIC_PATH } = env;
+const { PUBLIC_PATH, THEME_COLOR, BASE_URL } = env;
 
 module.exports = {
   cache: true,
@@ -155,9 +154,11 @@ module.exports = {
                 loader: require.resolve('less-loader'),
                 options: {
                   lessOptions: {
+                    modifyVars: {
+                      themeColor: THEME_COLOR,
+                    },
                     globalVars: {},
                     javascriptEnable: true,
-                    modifyVars: { themeColor: '#6C69FF' },
                   },
                   additionalData: '',
                 }
@@ -184,9 +185,11 @@ module.exports = {
                 loader: require.resolve('less-loader'),
                 options: {
                   lessOptions: {
+                    modifyVars: {
+                      themeColor: THEME_COLOR,
+                    },
                     globalVars: {},
                     javascriptEnable: true,
-                    modifyVars: { themeColor: '#6C69FF' },
                   },
                   additionalData: '',
                 }
@@ -211,7 +214,7 @@ module.exports = {
       meta: {
         viewport: {
           name: 'width=device-width',
-          content: 'initial-scale=1.0, user-scalable: no, maximum-scale=1.0, minimum-scale=no'
+          content: 'initial-scale=1.0, user-scalable: no, maximum-scale=1.0, minimum-scale=1.0'
         }
       }
     }),
@@ -229,7 +232,7 @@ module.exports = {
   devServer: {
     hot: true,
     port: 8888,
-    open: true,
+    open: BASE_URL,
     compress: true,
     host: 'localhost',
     historyApiFallback: true,

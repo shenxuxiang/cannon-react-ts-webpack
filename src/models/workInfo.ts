@@ -1,20 +1,24 @@
-import request from '@/utils/axios';
-import type { Dispatch } from 'redux';
+import * as api from '@/api/workInfo';
+import type { Dispatch } from '@reduxjs/toolkit';
 import createReducer from '@/redux/createReducer';
 
-export const effects = {
-  queryTableList: () => request.post('/v1.0/home-table-list'),
-};
-
-export const actions = {
+const effects = {
   queryTableList: () => {
     return (dispatch: Dispatch) => {
-      return effects.queryTableList().then((response: any) => {
-        dispatch({ type: 'queryTableList', payload: null });
+      return api.queryTableList().then((response: any) => {
+        dispatch({ type: 'workinfo/queryTableList', payload: null });
         return response;
       });
     };
   },
 };
 
-export default createReducer(actions);
+export type WorkInfoModel = {};
+
+const { reducer, actions } = createReducer<WorkInfoModel, typeof effects>({
+  effects,
+  name: 'workinfo',
+  initialState: {},
+});
+
+export { reducer as default, actions };

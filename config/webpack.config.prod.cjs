@@ -9,12 +9,11 @@ const CssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const CaseSensitivePlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 if (fs.existsSync('../env.production.json')) Object.assign(env, require('../env.production.json'));
-const { PUBLIC_PATH } = env;
+const { PUBLIC_PATH, THEME_COLOR, BASE_URL } = env;
 
 module.exports = {
   bail: true,
@@ -23,7 +22,8 @@ module.exports = {
   entry: path.resolve('src/index.tsx'),
   output: {
     clean: true,
-    publicPath: PUBLIC_PATH,
+    // 生产构建时，资源访问路径需要根据 base url 设置。
+    publicPath: BASE_URL,
     path: path.resolve('build'),
     filename: 'static/js/[name].[chunkhash:8].js',
     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
@@ -178,7 +178,7 @@ module.exports = {
                 options: {
                   lessOptions: {
                     modifyVars: {
-                      themeColor: '#6C69FF',
+                      themeColor: THEME_COLOR,
                     },
                     globalVars: {},
                     javascriptEnable: true,
@@ -209,7 +209,7 @@ module.exports = {
                 options: {
                   lessOptions: {
                     modifyVars: {
-                      themeColor: '#6C69FF',
+                      themeColor: THEME_COLOR,
                     },
                     globalVars: {},
                     javascriptEnable: true,

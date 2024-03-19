@@ -1,34 +1,19 @@
 /**
- * userInfo 这样的基础数据已经注入到 BasicContext 中，所以在这里就不用再次注入到 model 层了。
- * actions 中的属性默认将会注入到页面 props 中，如果不想将其注入到页面，就不要在 actions 中添加，建议直接使用 effects 中定义的方法。
+ * 请将 "@/models/*.ts" 目录下的所有文件按照固定的格式导入。
+ * 注意，没有被用到的 reducer、actions 就不要导入进来，TreeShake 对该文件无效。
+ * @param AllModelStateType 是 redux store 的数据模型类型的集合，它涵盖项目中所有的 model。
  */
-import request from '@/utils/axios';
-import type { Dispatch } from 'redux';
-import createReducer from '@/redux/createReducer';
 
-const INITIAL_DATA = {
-  workTypeList: [],
+import type { MainModel } from './main';
+import type { WorkInfoModel } from './workInfo';
+import type { SystemRoleModel } from './systemRole';
+
+export type AllModelStateType = {
+  main: MainModel;
+  workInfo: WorkInfoModel;
+  systemRole: SystemRoleModel;
 };
 
-export const effects = {
-  queryUserInfo: () => request.post('/v1.0/sysUser/info'),
-  queryWorkTypeList: () => request.post('/v1.0/sysDict/type/list'),
-};
-
-export const actions = {
-  queryWorkTypeList: () => {
-    return (dispatch: Dispatch) => {
-      return effects.queryWorkTypeList().then((response: any) => {
-        dispatch({
-          type: 'queryWorkTypeList',
-          payload: {
-            workTypeList: response.data?.map((item: any) => ({ value: item.dictId, label: item.dictName })) ?? [],
-          },
-        });
-        return response;
-      });
-    };
-  },
-};
-
-export default createReducer(actions, INITIAL_DATA);
+export { default as mainReducer, actions as mainActions } from './main';
+export { default as workInfoReducer, actions as workInfoActions } from './workInfo';
+export { default as systemRoleReducer, actions as systemRoleActions } from './systemRole';
